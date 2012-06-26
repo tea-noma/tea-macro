@@ -22,26 +22,26 @@ function doCommand(cmd){
 	for(var i=0;i<length;i++){
 		execute(cmds[i]);
 	}
-// #teaos:else
+/* #teaos:else
 	execute(cmd);
-// #teaos:endif
+   #teaos:endif */
 }
 
 function getScreenType(context){
 /*#teaos:if (== SCREEN_SIZE SMALL_SIZE)
-	return 'short';
+	return 'small';
   #teaos:elseif (== SCREEN_SIZE NORMAL_SIZE)
 	return 'normal';
   #teaos:elseif (== SCREEN_SIZE BIG_SIZE)
-	return 'long';
+	return 'big';
   #teaos:else */
 	var sz=getScreenSize();
 	if(sz.width>context.params.longWidth){
-		return 'long';
-	}else if(sz.width<context.params.longWidth){
+		return 'big';
+	}else if(sz.width<context.params.shortWidth){
 		return 'small';
 	}else {
-		return 'short';
+		return 'normal';
 	}
 //#teaos:endif
 }
