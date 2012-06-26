@@ -1,0 +1,258 @@
+<<TeaScript Specification Document>>
+
+1. Concept
+
+ Using TeaScript in your Javascript project, you could optimize code, support cross browser and support cross platform very easily.
+ TeaScript is macro language. This language works on ECMAScript(Javascript) execution environment. And it will work on CoffeeScript in future.
+
+2. Usage
+
+ You can test your code without TeaScript pre-processsor, because TeaScript is described as the comment of ECMAScript.
+ Having node.js environment, you can compile TeaScript by using console command. The console command is described by the following form.
+
+------(command line)------
+> node app.js -p <file path>
+--------------------------
+
+ After installing TeaScript in npm global scope, you can use teamacro command.
+
+------(command line)------
+> npm install -g
+> teamacro -p <file path>
+--------------------------
+
+ Using pipeline, you can compile multiple file as a composited file, and store output data in file.
+
+------(command line)------
+> cat tests/before.js tests/setting1.js tests/after.js tests/code.js | teamacro > tests/results/result1.js
+--------------------------
+
+3. Propose
+
+3.1. Switch debug/release mode
+
+----------(code)----------
+// (before.js)
+// #teaos:define DEBUG 1
+// #teaos:define RELEASE 2
+
+// (setting.js) user setting file
+// #teaos:define MODE RELEASE
+
+// (after.js)
+// #teaos:if (!defined MODE)
+// #teaos:define MODE DEBUG
+// #teaos:endif
+
+// (code.js)
+function assert(s){
+//#teaos:if (== MODE DEBUG)
+	var log=$('log');
+	log.innerHTML+=satanise(s);
+//#teaos:endif
+}
+--------------------------
+
+3.2. Switch Serverside/Clientside javascript
+
+----------(code)----------
+// (before.js)
+// #teaos:define SERVERSIDE 1
+// #teaos:define CLIENTSIDE 2
+
+// (setting.js) user setting file
+// #teaos:define DEPLOYMENT CLIENTSIDE
+
+// (after.js)
+// #teaos:if (!defined DEPLOYMENT)
+// #teaos:define DEPLOYMENT CLIENTSIDE
+// #teaos:endif
+
+// (code.js)
+function log(s){
+//#teaos:if (== DEPLOYMENT CLIENTSIDE)
+	var log=$('log');
+	log.innerHTML+=satanise(s);
+/*#teaos:else
+	console.log(s);
+  #teaos:endif */
+}
+--------------------------
+
+3.3. Switch Optimized code/General code
+
+----------(code)----------
+// (setting.js) user setting file
+// #teaos:define DISABLE_MULTIPLE_COMMAND
+
+// (code.js)
+function doCommand(cmd){
+// #teaos:if defined DISABLE_MULTIPLE_COMMAND
+	var cmds;
+	var length;
+	cmds=cmd.split(',');
+	length=cmds.length;
+	for(var i=0;i<length;i++){
+		execute(cmds[i]);
+	}
+// #teaos:else
+	execute(cmd);
+// #teaos:endif
+}
+--------------------------
+
+3.4. Support cross platform
+
+----------(code)----------
+// (before.js)
+// #teaos:define ANY_DEVICE 0
+// #teaos:define IPHONE    1
+// #teaos:define ANDROID   2
+// #teaos:define CHROME    3
+// #teaos:define IPAD      4
+// #teaos:define WINDOWSPC 5
+// #teaos:define LINUXPC   6
+// #teaos:define MACPC     7
+// #teaos:define DEVICE    ANY_DEVICE
+//
+// #teaos:define ANY_SIZE    0
+// #teaos:define SMALL_SIZE  1
+// #teaos:define NORMAL_SIZE 2
+// #teaos:define BIG_SIZE    3
+// #teaos:define SCREEN_SIZE ANY_SIZE
+
+// (setting.js) user setting file
+// #teaos:define DEVICE    IPAD
+
+// (after.js)
+// #teaos:if (|| (== DEVICE IPHONE) (== DEVICE ANDROID))
+//   #teaos:define SCREEN_SIZE  SMALL_SIZE
+// #teaos:elseif (== DEVICE IPAD)
+//   #teaos:define SCREEN_SIZE  NORMAL_SIZE
+// #teaos:elseif (|| (== DEVICE WINDOWSPC) (== DEVICE LINUXPC) (== DEVICE MACPC))
+//   #teaos:define SCREEN_SIZE  BIG_SIZE
+// #teaos:else
+//   #teaos:define SCREEN_SIZE  ANY_SIZE
+// #teaos:endif
+
+// (code.js)
+function getScreenType(context){
+/*#teaos:if (== SCREEN_SIZE SMALL_SIZE)
+	return 'short';
+  #teaos:elseif (== SCREEN_SIZE NORMAL_SIZE)
+	return 'normal';
+  #teaos:elseif (== SCREEN_SIZE BIG_SIZE)
+	return 'long';
+  #teaos:else */
+	var sz=getScreenSize();
+	if(sz.width>context.params.longWidth){
+		return 'long';
+	}else if(sz.width<context.params.longWidth){
+		return 'small';
+	}else {
+		return 'short';
+	}
+//#endif
+}
+--------------------------
+
+A. Statement
+
+A.1. "define" statement
+
+ "define" statement defines the parameter which is refered in another statement.
+
+----------(code)----------
+// #teaos:define DEBUG 1
+// #teaos:define RELEASE 2
+// #teaos:define MODE DEBUG
+--------------------------
+
+A.2. include/include_once statement [TBD]
+
+ "include" statement imports the specified file in the current document.
+
+// #teaos:include <filepath>
+
+ "include_once" statement imports the specified file in the current document at once.
+
+// #teaos:include_once <filepath>
+
+A.3. if/elseif/endif statement
+
+----------(code)----------
+// #teaos:if <expression>
+<active code>
+/* #teaos:elseif <expression>
+<inactive code>
+#teaos:else
+<inactive code>
+#teaos:endif */
+--------------------------
+
+----------(code)----------
+/* #teaos:if <expression>
+<inactive code>
+   #teaos:else */
+<active code>
+// #teaos:endif
+--------------------------
+
+----------(code)----------
+/* #teaos:if <expression>
+<inactive code>
+   #teaos:else */
+<active code>
+// #teaos:endif
+--------------------------
+
+B. Expression
+
+ TeaScript expression is like LISP.
+
+B.1. 'defined' expression
+
+'defined' expression checks if the specified parameter is defined.
+
+----------(code)----------
+ (defined <parameter name> <parameter name> ...)
+--------------------------
+
+B.2. expression for composition (logical and / logical or / logical not)
+
+ '&&' expression caluculates logical and.
+ '||' expression caluculates logical or.
+
+----------(code)----------
+(&& <expression> <expression> ...)
+(|| <expression> <expression> ...)
+(! <expression>)
+--------------------------
+
+B.3. expression for comparison
+
+ '==' expression check if left expression equals right expression.
+ '!=' expression check if left expression doesn't equal right expression.
+
+----------(code)----------
+(== <expression> <expression>)
+(!= <expression> <expression>)
+--------------------------
+
+
+C. Document
+
+ TeaScript helps generating document.
+
+/**
+ * @author <modifier>
+ * @date   <modified date>
+ *
+ * --teaos:kind=<kind of source>
+ * --teaos:creator=<author name>
+ * --teaos:created=<created date>
+ * --teaos:dependence=<module dependence>
+ * --teaos:meta=<meta attribute>
+ ....
+ */
+
