@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+var fs = require('fs')
+  , opts = require('opts')
+  , teamacro = require('tea-macro');
+
+opts.parse([
+	// command line -m <mode> or -mode <mode>
+    {
+        'short': 'm',
+        'long': 'mode',
+        'description': 'output mode. code,stmt,expr. default is code.',
+        'value': true,
+        'required': false
+    },
+	// command line -p <path> or -path <path>
+    {
+        'short': 'p',
+        'long': 'path',
+        'description': 'input path.',
+        'value': true,
+        'required': false
+    },
+]);
+
+var mode=opts.get('mode') || 'code';
+var filepath=opts.get('path');
+
+var read;
+if(filepath){
+	read = fs.createReadStream(filepath, {encoding: 'utf8'});
+}else{
+	process.stdin.resume();
+	process.stdin.setEncoding('utf8');
+	read = process.stdin;
+}
+
+read.on('data', function (data) {
+	var context={params:{},buf:'',mode:mode};
+	teamacro.compile(data,context);
+	if(mode=='ctx'){
+		console.log(JSON.stringify(context));
+	}else if(mode=='code'){
+		console.log(context.buf);
+	}
+});
+
+

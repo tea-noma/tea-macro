@@ -1,0 +1,17 @@
+{
+    "name": "tea-macro",
+    "version": "0.1.0",
+    "keywords": ["javascript", "language", "teamacro", "compiler"],
+    "author":"Toru Nomakuchi",
+    "description":"Macro pre-processor for Javascript",
+    "bin": {
+        "teamacro":"./bin/app"
+	},
+    "main" : "./lib/tea-macro/tea-macro",
+	"licenses":[{
+		"type":"MIT"
+	}],
+    "devDependencies":{
+		"opts":"*"
+	}
+}
