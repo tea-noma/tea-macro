@@ -1,20 +1,20 @@
-<<TeaScript Specification Document>>
+<<TeaMacro Specification Document>>
 
 1. Concept
 
- Using TeaScript in your Javascript project, you could optimize code, support cross browser and support cross platform very easily.
- TeaScript is macro language. This language works on ECMAScript(Javascript) execution environment. And it will work on CoffeeScript in future.
+ Using TeaMacro in your Javascript project, you could optimize code, support cross browser and support cross platform very easily.
+ TeaMacro is macro language. This language works on ECMAScript(Javascript) execution environment. And it will work on CoffeeScript in future.
 
 2. Usage
 
- You can test your code without TeaScript pre-processsor, because TeaScript is described as the comment of ECMAScript.
- Having node.js environment, you can compile TeaScript by using console command. The console command is described by the following form.
+ You can test your code without TeaMacro pre-processsor, because TeaMacro is described as the comment of ECMAScript.
+ Having node.js environment, you can compile TeaMacro by using console command. The console command is described by the following form.
 
 ------(command line)------
 > node app.js -p <file path>
 --------------------------
 
- After installing TeaScript in npm global scope, you can use teamacro command.
+ After installing TeaMacro in npm global scope, you can use teamacro command.
 
 ------(command line)------
 > npm install -g
@@ -208,7 +208,7 @@ A.3. if/elseif/endif statement
 
 B. Expression
 
- TeaScript expression is like LISP.
+ TeaMacro expression is like LISP.
 
 B.1. 'defined' expression
 
@@ -242,7 +242,7 @@ B.3. expression for comparison
 
 C. Document
 
- TeaScript helps generating document.
+ TeaMacro helps generating document.
 
 /**
  * @author <modifier>
