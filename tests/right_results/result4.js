@@ -4,7 +4,6 @@ function log(s){
 }
 
 function assert(s){
-	log(s);
 }
 
 function doCommand(cmd){
@@ -18,13 +17,6 @@ function doCommand(cmd){
 }
 
 function getScreenType(context){
-	var sz=getScreenSize();
-	if(sz.width>context.params.longWidth){
-		return 'long';
-	}else if(sz.width<context.params.longWidth){
-		return 'small';
-	}else {
-		return 'short';
-	}
+	return 'long';
 }
 

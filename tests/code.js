@@ -14,7 +14,7 @@ function assert(s){
 }
 
 function doCommand(cmd){
-// #teaos:if defined DISABLE_MULTIPLE_COMMAND
+// #teaos:if ! (defined DISABLE_MULTIPLE_COMMAND)
 	var cmds;
 	var length;
 	cmds=cmd.split(',');

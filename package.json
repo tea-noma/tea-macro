@@ -8,8 +8,13 @@
         "teamacro":"./bin/app"
 	},
     "main" : "./lib/tea-macro/tea-macro",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tea-noma/tea-macro.git"
+    },
 	"licenses":[{
-		"type":"MIT"
+		"type":"MIT",
+		"":"https://github.com/tea-noma/tea-macro/blob/master/LICENSE"
 	}],
     "devDependencies":{
 		"opts":"*"
