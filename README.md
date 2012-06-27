@@ -69,11 +69,12 @@ Usage
 
  After installing TeaMacro in npm global scope, you can use teamacro command.
 
-    > npm install -g
+    > npm install tea-macro -g
     > teamacro -p <file path>
 
  Using pipeline, you can compile multiple file as a composited file, and store output data in file.
 
+    > npm install tea-macro
     > cat tests/before.js tests/setting1.js tests/after.js tests/code.js | teamacro > tests/results/result1.js
 
 
