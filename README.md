@@ -20,9 +20,11 @@ Usage
        #teaos:endif */
     }
     
-    function assert(s){
+    function assert(cond,s){
     //#teaos:if (== MODE DEBUG)
-    	log(s);
+    	if(!cond){
+            log(s);
+    	}
     //#teaos:endif
     }
     
@@ -244,7 +246,7 @@ TeaMacro Syntax
 
     // #teaos:include_once <filepath>
 
-#### if/elseif/endif statement ####
+#### if/elseif(or elif)/endif statement ####
 
 pattern:1
 
