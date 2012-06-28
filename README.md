@@ -1,7 +1,7 @@
-TeaMacro
+TeaMacro (0.1.1)
 ======================
- Using TeaMacro in your Javascript project, you could optimize code, support cross browser and support cross platform very easily.
- TeaMacro is macro language. This language works on ECMAScript(Javascript) execution environment. And it will work on CoffeeScript in future.
+ Using TeaMacro in your Javascript (and CoffeeScript, PHP, Java, C/C++) project, you could optimize code, support cross browser and support cross platform very easily.
+ TeaMacro is macro language. This language works on ECMAScript(Javascript), CoffeeScript, PHP, Java and C/C++.
 
 Usage
 ------
@@ -61,6 +61,13 @@ Usage
     //#teaos:endif
     }
 ```
+
+See also,
+
+1. [CoffeeScript sample](https://github.com/tea-noma/tea-macro/blob/master/tests/code2.coffee "CoffeeScript code sample")
+2. [Java sample](https://github.com/tea-noma/tea-macro/blob/master/tests/code.java "Java code sample")
+3. [PHP sample](https://github.com/tea-noma/tea-macro/blob/master/tests/code.php "PHP code sample")
+4. [C++ sample](https://github.com/tea-noma/tea-macro/blob/master/tests/code.hpp "C++ code sample")
 
 ### Command Line ###
 

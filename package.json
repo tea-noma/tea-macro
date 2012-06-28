@@ -1,9 +1,9 @@
 {
     "name": "tea-macro",
     "version": "0.1.1",
-    "keywords": ["javascript", "language", "teamacro", "compiler"],
+    "keywords": ["javascript", "coffeescript", "PHP", "Java", "language", "teamacro", "compiler"],
     "author":"Toru Nomakuchi",
-    "description":"Macro pre-processor for Javascript",
+    "description":"Macro pre-processor for Javascript/CoffeeScript/PHP/Java/C/C++",
     "bin": {
         "teamacro":"./bin/app"
 	},
