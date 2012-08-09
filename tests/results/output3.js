@@ -1,23 +1,23 @@
-log = (s) ->
-  logTag=$('log')
-  logTag.innerHTML+=satanise(s)
+(function() {
+  var assert, doCommand, getScreenType, log;
 
-assert = (s) ->
-  log(s)
+  log = function(s) {
+    var logTag;
+    logTag = $('log');
+    return logTag.innerHTML += satanise(s);
+  };
 
+  assert = function(s) {
+    return log(s);
+  };
 
-doCommand = (cmd) ->
-  cmds=cmd.split(',')
-  for cmd in cmds
-    execute(cmd)
+  doCommand = function(cmd) {
+    return execute(cmd);
+  };
 
-getScreenType = (context) ->
-  sz=getScreenSize()
-  if (sz.width>context.params.longWidth)
-    'big'
-  else if (sz.width<context.params.shortWidth)
-    'small'
-  else
-    'normal'
+  getScreenType = function(context) {
+    return 'small';
+  };
 
+}).call(this);
 

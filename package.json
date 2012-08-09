@@ -1,6 +1,6 @@
 {
     "name": "tea-macro",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "keywords": ["javascript", "coffeescript", "PHP", "Java", "language", "teamacro", "compiler"],
     "author":"Toru Nomakuchi",
     "description":"Macro pre-processor for Javascript/CoffeeScript/PHP/Java/C/C++",
@@ -17,6 +17,8 @@
 		"url":"https://github.com/tea-noma/tea-macro/blob/master/LICENSE"
 	}],
     "devDependencies":{
-		"opts":"*"
+		"opts":"*",
+		"coffee-script":"*",
+		"uglify-js":"*"
 	}
 }

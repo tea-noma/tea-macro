@@ -1,4 +1,4 @@
-TeaMacro (0.1.1)
+TeaMacro (0.1.2)
 ======================
  Using TeaMacro in your Javascript (and CoffeeScript, PHP, Java, C/C++) project, you could optimize code, support cross browser and support cross platform very easily.
  TeaMacro is macro language. This language works on ECMAScript(Javascript), CoffeeScript, PHP, Java and C/C++.
@@ -69,6 +69,13 @@ See also,
 3. [PHP sample](https://github.com/tea-noma/tea-macro/blob/master/tests/code.php "PHP code sample")
 4. [C++ sample](https://github.com/tea-noma/tea-macro/blob/master/tests/code.hpp "C++ code sample")
 
+### History ###
+
+- version 0.1.2
+-- Support "namespace" statement
+-- Support -[s]etting option and -[t]arget option
+-- Support "include"/"include_once" statement
+
 ### Command Line ###
 
  You can test your code without TeaMacro pre-processsor, because TeaMacro is described as the comment of ECMAScript.
@@ -86,6 +93,10 @@ See also,
     > npm install tea-macro
     > cat tests/before.js tests/setting1.js tests/after.js tests/code.js | teamacro > tests/results/result1.js
 
+ You can set a setting file, using '-s' option. See "Setting file".
+
+    > teamacro -s <setting file path>
+    > teamacro -s <setting file path> -t <target scope>
 
 Propose
 ------
@@ -165,9 +176,9 @@ Propose
     	for(var i=0;i<length;i++){
     		execute(cmds[i]);
     	}
-    // #teaos:else
+    /* #teaos:else
     	execute(cmd);
-    // #teaos:endif
+       #teaos:endif */
     }
 ```
 
@@ -223,7 +234,7 @@ Propose
     		return 'long';
     	}else if(sz.width<context.params.longWidth){
     		return 'small';
-    	}else {
+    	}else{
     		return 'short';
     	}
     //#endif
@@ -243,7 +254,16 @@ TeaMacro Syntax
     // #teaos:define RELEASE 2
     // #teaos:define MODE DEBUG
 
-#### include/include_once statement [TBD] ####
+#### "namespace" statement ####
+
+ "namespace" statement defines the namespace of macro statement. default namespace is "teaos".
+
+    // #teaos:namespace
+    // #:define PARAM1 1
+    // #:define PARAM2 2
+    // #:namespace teaos
+
+#### include/include_once/include_code/include_code_once statement ####
 
  "include" statement imports the specified file in the current document.
 
@@ -252,6 +272,10 @@ TeaMacro Syntax
  "include_once" statement imports the specified file in the current document at once.
 
     // #teaos:include_once <filepath>
+
+ "include_code" statement imports the specified file in the current document. The difference between "include_code" and "include" is stripping the top of comment.
+
+    // #teaos:include_code <filepath>
 
 #### if/elseif(or elif)/endif statement ####
 
@@ -291,6 +315,12 @@ pattern:3
 
      (defined <parameter name> <parameter name> ...)
 
+#### 'append' expression ####
+
+'append' expression append string.
+
+     (append <expression> <expression> ...)
+
 #### expression for composition (logical and / logical or / logical not) ####
 
  '&&' expression caluculates logical and.
@@ -307,6 +337,71 @@ pattern:3
 
     (== <expression> <expression>)
     (!= <expression> <expression>)
+
+
+### Replacement macro in document ###
+
+ '$teaos:{<macro name>}' keyword in document is replaced to macro variable.
+
+     mode is #teaos:{MODE}.
+     deployment is #teaos:{DEPLOYMENT}.
+
+
+### Setting file ###
+
+ The format of setting file is JSON, as follows. 
+
+    {
+    	"setting1":{
+    		"before":["before.js","settings/1.js","after.js"],
+    		"inputs":["code.hpp","code.java","code.js","code.php","code2.coffee"],
+    		"outputs":"results/result1.${extension}"
+    	},
+    	"setting2":{
+    		"before":["before.js","settings/2.js","after.js"],
+    		"inputs":["code.hpp","code.java","code.js","code.php","code2.coffee"],
+    		"outputs":"results/result2.${extension}"
+    	},
+    	"setting3":{
+    		"before":["before.js","settings/3.js","after.js"],
+    		"inputs":["code.hpp","code.java","code.js","code.php","code2.coffee"],
+    		"outputs":"results/result3.${extension}"
+    	},
+    	"setting4":{
+    		"before":["before.js","settings/4.js","after.js"],
+    		"inputs":["code.hpp","code.java","code.js","code.php","code2.coffee"],
+    		"outputs":"results/result4.${extension}"
+    	},
+    	"input_g":{
+    		"inputs":["input.js"],
+    		"outputs":"results/output1.js"
+    	},
+    	"input_c":{
+    		"inputs":["input.js"],
+    		"outputs":"results/output2.js",
+    		"compress":{"js":"js"}
+    	},
+    	"input_co":{
+    		"inputs":["input.coffee"],
+    		"outputs":"results/output3.js",
+    		"compile":{"coffee":"coffee"}
+    	},
+    	"input":{
+			"targets":["input_g","input_c","input_co"]
+		}
+    }
+
+- "before" attribute: Array of config file. These files are loaded before input file loaded.
+- "inputs" attribute: Array of input file.
+- "after" attribute: Array of config file. These files are loaded after input file loaded.
+- "outputs" attribute: output file descriptor. ${path}, ${extension}, ${name} are avairable.
+-- ${path}: path of input file.
+-- ${extension}: extension of input file.
+-- ${name}: name of input file.
+- "compile" attribute: Compiler setting. Hash pattern. ex) {"coffee":"coffee"}
+- "compress" attribute: Compressor setting. Hash pattern. ex) {"js":"js"}
+- "targets" attribute: grouping targets.
+
 
 
 License

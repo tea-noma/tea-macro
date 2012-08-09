@@ -1,17 +1,18 @@
-// #teaos:if ! (defined MODE)
-// #teaos:define MODE DEBUG
-// #teaos:endif
+#:if ! (defined MODE)
+#:define MODE DEBUG
+#:endif
 //
-// #teaos:if ! (defined DEPLOYMENT)
-// #teaos:define DEPLOYMENT CLIENTSIDE
-// #teaos:endif
+#:if ! (defined DEPLOYMENT)
+#:define DEPLOYMENT CLIENTSIDE
+#:endif
 //
-// #teaos:if (|| (== DEVICE IPHONE) (== DEVICE ANDROID))
-//   #teaos:define SCREEN_SIZE  SMALL_SIZE
-// #teaos:elseif (== DEVICE IPAD)
-//   #teaos:define SCREEN_SIZE  NORMAL_SIZE
-// #teaos:elseif (|| (== DEVICE WINDOWSPC) (== DEVICE LINUXPC) (== DEVICE MACPC))
-//   #teaos:define SCREEN_SIZE  BIG_SIZE
-// #teaos:else
-//   #teaos:define SCREEN_SIZE  ANY_SIZE
-// #teaos:endif
+#:if (|| (== DEVICE IPHONE) (== DEVICE ANDROID))
+  #:define SCREEN_SIZE  SMALL_SIZE
+#:elseif (== DEVICE IPAD)
+  #:define SCREEN_SIZE  NORMAL_SIZE
+#:elseif (|| (== DEVICE WINDOWSPC) (== DEVICE LINUXPC) (== DEVICE MACPC))
+  #:define SCREEN_SIZE  BIG_SIZE
+#:else
+  #:define SCREEN_SIZE  ANY_SIZE
+#:endif
+#:namespace teaos

@@ -1,21 +1,22 @@
-// #teaos:define DEBUG 1
-// #teaos:define RELEASE 2
+#teaos:namespace
+#:define DEBUG 1
+#:define RELEASE 2
 //
-// #teaos:define SERVERSIDE 1
-// #teaos:define CLIENTSIDE 2
+#:define SERVERSIDE 1
+#:define CLIENTSIDE 2
 //
-// #teaos:define ANY_DEVICE 0
-// #teaos:define IPHONE    1
-// #teaos:define ANDROID   2
-// #teaos:define CHROME    3
-// #teaos:define IPAD      4
-// #teaos:define WINDOWSPC 5
-// #teaos:define LINUXPC   6
-// #teaos:define MACPC     7
-// #teaos:define DEVICE    ANY_DEVICE
+#:define ANY_DEVICE 0
+#:define IPHONE    1
+#:define ANDROID   2
+#:define CHROME    3
+#:define IPAD      4
+#:define WINDOWSPC 5
+#:define LINUXPC   6
+#:define MACPC     7
+#:define DEVICE    ANY_DEVICE
 //
-// #teaos:define ANY_SIZE    0
-// #teaos:define SMALL_SIZE  1
-// #teaos:define NORMAL_SIZE 2
-// #teaos:define BIG_SIZE    3
-// #teaos:define SCREEN_SIZE ANY_SIZE
+#:define ANY_SIZE    0
+#:define SMALL_SIZE  1
+#:define NORMAL_SIZE 2
+#:define BIG_SIZE    3
+#:define SCREEN_SIZE ANY_SIZE

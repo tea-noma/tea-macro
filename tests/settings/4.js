@@ -1,2 +1,2 @@
-// #teaos:define MODE RELEASE
-// #teaos:define DEVICE LINUXPC
+#:define MODE RELEASE
+#:define DEVICE LINUXPC

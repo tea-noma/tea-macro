@@ -8,6 +8,8 @@
 #include "StringArray.hpp";
 #include "Context.hpp";
 
+// MODE 1
+
 class Util {
 private:
 	static Util* singleton;

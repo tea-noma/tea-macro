@@ -2,7 +2,11 @@
 
 var fs = require('fs')
   , opts = require('opts')
+  , coffee=require('coffee-script')
   , teamacro = require('tea-macro');
+
+var jsp = require("uglify-js").parser;
+var pro = require("uglify-js").uglify;
 
 opts.parse([
 	// command line -m <mode> or -mode <mode>
@@ -21,28 +25,42 @@ opts.parse([
         'value': true,
         'required': false
     },
+	// command line -s <path> or -setting <path>
+    {
+        'short': 's',
+        'long': 'setting',
+        'description': 'setting file path. (JSON style file)',
+        'value': true,
+        'required': false
+    },
+    // command line -t <target> or -target <target>
+    {
+        'short': 't',
+        'long': 'target',
+        'description': 'target file.',
+        'value': true,
+        'required': false
+    }
 ]);
 
-var mode=opts.get('mode') || 'code';
-var filepath=opts.get('path');
-
-var read;
-if(filepath){
-	read = fs.createReadStream(filepath, {encoding: 'utf8'});
-}else{
-	process.stdin.resume();
-	process.stdin.setEncoding('utf8');
-	read = process.stdin;
-}
-
-read.on('data', function (data) {
-	var context={params:{},buf:'',mode:mode};
-	teamacro.compile(data,context);
-	if(mode=='ctx'){
-		console.log(JSON.stringify(context));
-	}else if(mode=='code'){
-		console.log(context.buf);
-	}
+teamacro.registerCompiler('coffee',function(data){
+	return coffee.compile(data);
 });
 
+teamacro.registerCompressor('js',function(data){
+	var ast = jsp.parse(data);
+	ast = pro.ast_mangle(ast);
+	ast = pro.ast_squeeze(ast);
+	return pro.gen_code(ast);
+});
+
+var setting=opts.get('setting');
+if(setting==null){
+	var mode=opts.get('mode') || 'code';
+	var filepath=opts.get('path');
+	teamacro.compileFromFile(filepath,mode);
+}else{
+	var target=opts.get('target') || null;
+	teamacro.makeFromFile(setting, target);
+}
 
