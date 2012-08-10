@@ -263,7 +263,7 @@ TeaMacro Syntax
     // #:define PARAM2 2
     // #:namespace teaos
 
-#### include/include_once/include_code/include_code_once statement ####
+#### include/include_once/include_code[TBD]/include_code_once[TBD] statement ####
 
  "include" statement imports the specified file in the current document.
 
@@ -273,7 +273,7 @@ TeaMacro Syntax
 
     // #teaos:include_once <filepath>
 
- "include_code" statement imports the specified file in the current document. The difference between "include_code" and "include" is stripping the top of comment.
+ "include_code" statement imports the specified file in the current document. The difference between "include_code" and "include" is to strip the top of comment.
 
     // #teaos:include_code <filepath>
 
@@ -349,7 +349,7 @@ pattern:3
 
 ### Setting file ###
 
- The format of setting file is JSON, as follows. 
+ The format of setting file is JSON, as follows. The key of hash table is target scope, and the value of hash table is the setting of compiling and compressing. 
 
     {
     	"setting1":{
@@ -391,7 +391,9 @@ pattern:3
 		}
     }
 
-- "before" attribute: Array of config file. These files are loaded before input file loaded.
+ The setting attributes of compiling and compressing are as fellow.
+
+- "before" attribute: Array of config file. These files are loaded, before input file loaded.
 - "inputs" attribute: Array of input file.
 - "after" attribute: Array of config file. These files are loaded after input file loaded.
 - "outputs" attribute: output file descriptor. ${path}, ${extension}, ${name} are avairable.
@@ -408,5 +410,5 @@ License
 ----------
 Copyright &copy; 2012-2012 Toru Nomakuchi
 Distributed under the [MIT License][mit].
- 
+
 [MIT]: http://www.opensource.org/licenses/mit-license.php
