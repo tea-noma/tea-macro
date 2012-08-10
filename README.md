@@ -135,7 +135,7 @@ Propose
     // #teaos:define SERVERSIDE 1
     // #teaos:define CLIENTSIDE 2
 
-(setting.js) user setting file
+(setting.js)
 
     // #teaos:define DEPLOYMENT CLIENTSIDE
 
@@ -160,7 +160,7 @@ Propose
 
 ### Switch Optimized code/General code ###
 
-(setting.js) user setting file
+(setting.js)
 
     // #teaos:define DISABLE_MULTIPLE_COMMAND
 
